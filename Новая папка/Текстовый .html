@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Оле 💕</title>
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(180deg, #ffb6c1, #ffc3a0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+}
+.page {
+  display: none;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.page.active { display: flex; }
+.card {
+  background: white;
+  width: 90%;
+  max-width: 360px;
+  border-radius: 25px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+h1 { color: #ff4d6d; }
+p { color: #555; font-size: 17px; line-height: 1.5; }
+.buttons { margin-top: 20px; display: flex; justify-content: center; gap: 15px; }
+button {
+  padding: 14px 25px;
+  border: none;
+  border-radius: 30px;
+  font-size: 18px;
+  cursor: pointer;
+  flex: 1;
+}
+#yesBtn { background: #ff4d6d; color: white; }
+#noBtn { background: #ccc; color: #333; }
+.gallery img { width: 100%; border-radius: 18px; margin-bottom: 12px; display: block; }
+.heart {
+  position: absolute;
+  font-size: 22px;
+  pointer-events: none;
+  animation: fall linear infinite;
+}
+@keyframes fall {
+  from { transform: translateY(-10vh); opacity: 1; }
+  to { transform: translateY(110vh); opacity: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ПЕРВАЯ СТРАНИЦА -->
+<div class="page active" id="page1">
+  <div class="card">
+    <h1>Оля 💕</h1>
+    <p>У меня есть один очень важный вопрос…</p>
+    <div class="buttons">
+      <button id="yesBtn" onclick="goNext()">Да 💖</button>
+      <button id="noBtn" onclick="alert('Ты нажала Нет 🙈')">Нет 🙈</button>
+    </div>
+  </div>
+</div>
+
+<!-- ВТОРАЯ СТРАНИЦА -->
+<div class="page" id="page2">
+  <audio id="music" autoplay loop>
+    <source src="song.mp3" type="audio/mpeg">
+  </audio>
+  <div class="card">
+    <h1>Это мы 💘</h1>
+    <p>Каждое мгновение с тобой — особенное ❤️</p>
+    <div class="gallery">
+      <img src="photo1.jpg">
+      <img src="photo2.jpg">
+      <img src="photo3.jpg">
+    </div>
+    <p>Спасибо тебе за улыбки, тепло и счастье 💕</p>
+  </div>
+</div>
+
+<script>
+// Переход на вторую страницу
+function goNext() {
+  document.getElementById("page1").classList.remove("active");
+  document.getElementById("page2").classList.add("active");
+  startHearts();
+  document.getElementById("music").play().catch(()=>{}); // для мобильных, иногда нужно user interaction
+}
+
+// Падающие сердечки поверх фото
+function startHearts() {
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (2 + Math.random() * 2) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+  }, 150);
+}
+</script>
+
+</body>
+</html>
